@@ -1,7 +1,7 @@
 {
     "name": "cryproj",
     "displayName": "CryProj",
-    "description": "Easly edit .cryproj files",
+    "description": "Easily edit .cryproj files",
     "version": "0.0.1",
     "publisher": "l0ll098",
     "engines": {
