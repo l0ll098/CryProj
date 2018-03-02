@@ -1,0 +1,48 @@
+{
+    "name": "cryproj",
+    "displayName": "CryProj",
+    "description": "Easly edit .cryproj files",
+    "version": "0.0.1",
+    "publisher": "l0ll098",
+    "engines": {
+        "vscode": "^0.10.0"
+    },
+    "categories": [
+        "Languages",
+        "Snippets"
+    ],
+    "keywords": [
+        "CRYENGINE",
+        "Game Development",
+        "Game Engine",
+        "cryproj"
+    ],
+    "galleryBanner": {
+        "color": "#303F9F",
+        "theme": "dark"
+    },
+    "icon": "icons/icon.png",
+    "contributes": {
+        "languages": [
+            {
+                "id": "json",
+                "aliases": ["CryProj"],
+                "extensions": [".cryproj"],
+                "configuration": "./language-configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "json",
+                "scopeName": "source.json",
+                "path": "./syntaxes/json.tmLanguage"
+            }
+        ],
+        "jsonValidation": [
+            {
+                "fileMatch": "*.cryproj",
+                "url": "./schemas/cryproj.schema.json"
+            }
+        ]
+    }
+}
