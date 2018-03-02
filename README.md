@@ -14,11 +14,11 @@ This extension will add to your editor the following features:
 
 
 ### Code theming
-![Code theming](images/CodeTheming.png "Code theming")
+![Code theming](images/CodeTheming.PNG "Code theming")
 ### Suggestions
-![Code suggestions](images/CodeSuggestions.png "Code suggestions")
+![Code suggestions](images/CodeSuggestions.PNG "Code suggestions")
 ### A list of console variables and commands
-![Code theming](images/CommandsSuggestions.png "Console commands")
+![Code theming](images/CommandsSuggestions.PNG "Console commands")
 
  
 
