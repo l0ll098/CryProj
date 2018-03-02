@@ -21,7 +21,15 @@
         "color": "#303F9F",
         "theme": "dark"
     },
-    "icon": "icons/icon.png",
+    "icon": "images/icon.png",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/l0ll098/CryProj.git"
+    },
+    "homepage": "https://github.com/l0ll098/CryProj/blob/master/README.md",
+    "bugs": {
+        "url": "https://github.com/l0ll098/CryProj/issues"
+    },
     "contributes": {
         "languages": [
             {
