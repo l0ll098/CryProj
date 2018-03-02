@@ -2,7 +2,7 @@
     "name": "cryproj",
     "displayName": "CryProj",
     "description": "Easily edit .cryproj files",
-    "version": "0.0.1",
+    "version": "1.1.5",
     "publisher": "l0ll098",
     "engines": {
         "vscode": "^0.10.0"
@@ -34,8 +34,12 @@
         "languages": [
             {
                 "id": "json",
-                "aliases": ["CryProj"],
-                "extensions": [".cryproj"],
+                "aliases": [
+                    "CryProj"
+                ],
+                "extensions": [
+                    ".cryproj"
+                ],
                 "configuration": "./language-configuration.json"
             }
         ],
