@@ -12,11 +12,11 @@ enum CRYENGINE_VERSIONS {
 
 export function activate(context: vscode.ExtensionContext) {
     console.log("CryProj extension is active");
-    
-    let cryEngineVersion = new CryEngineVersion();
-    let extController = new ExtensionController(context, cryEngineVersion);
 
-    context.subscriptions.push(cryEngineVersion);
+    let statusBarHandler = new StatusBarHandler();
+    let extController = new ExtensionController(context, statusBarHandler);
+
+    context.subscriptions.push(statusBarHandler);
     context.subscriptions.push(extController);
 }
 
@@ -27,33 +27,33 @@ class ExtensionController {
     private subscriptions: vscode.Disposable[] = [];
     private disposable: vscode.Disposable;
 
-    constructor(context: vscode.ExtensionContext, cryEngineVersion: CryEngineVersion) {
+    constructor(context: vscode.ExtensionContext, statusBarHandler: StatusBarHandler) {
 
         this.subscriptions = [];
 
         // This will trigger the inner function when user changes file in the editor
         vscode.window.onDidChangeActiveTextEditor((e: vscode.TextEditor) => {
             if (this.isACryProjFile(e)) {
-                cryEngineVersion.updateVersion();
+                statusBarHandler.updateVersion();
             } else {
-                cryEngineVersion.hideStatusBar();
+                statusBarHandler.hideStatusBar();
             }
         }, null, this.subscriptions);
 
         // This will be triggered when user changes something in a file
         vscode.window.onDidChangeTextEditorSelection((e: vscode.TextEditorSelectionChangeEvent) => {
             if (this.isACryProjFile(e.textEditor)) {
-                cryEngineVersion.updateVersion();
+                statusBarHandler.updateVersion();
             }
         }, null, this.subscriptions);
 
         // Required as if user opens VS Code with a file already opened it won't trigger
         // the onDidChangeActiveTextEditor, so checks are needed even there
         if (this.isACryProjFile(vscode.window.activeTextEditor)) {
-            cryEngineVersion.updateVersion();
+            statusBarHandler.updateVersion();
         }
         // Add to a list of disposables which are disposed when this extension is deactivated.
-        context.subscriptions.push(cryEngineVersion);
+        context.subscriptions.push(statusBarHandler);
 
         this.disposable = vscode.Disposable.from(...this.subscriptions);
     }
@@ -72,7 +72,7 @@ class ExtensionController {
 }
 
 
-class CryEngineVersion {
+class StatusBarHandler {
 
     private _statusBarVersion: vscode.StatusBarItem =
         vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left);
