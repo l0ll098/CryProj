@@ -2,12 +2,21 @@
 
 import * as vscode from "vscode";
 
+enum CRYENGINE_VERSIONS {
+    "engine-dev",
+    "engine-5.4", 
+    "engine-5.3",
+    "engine-5.2"
+}
+
+
 export function activate(context: vscode.ExtensionContext) {
     console.log("CryProj extension is active");
 
     // create a new word counter
     let cryEngineVersion = new CryEngineVersion();
 
+    // This will trigger the inner function when user changes file in the editor
     vscode.window.onDidChangeActiveTextEditor((e: vscode.TextEditor) => {
         if (isACryProjFile(e)) {
             cryEngineVersion.updateVersion();
@@ -15,6 +24,13 @@ export function activate(context: vscode.ExtensionContext) {
             cryEngineVersion.hideStatusBar();
         }
     });
+
+    // This will be triggered when user changes something in a file
+    vscode.window.onDidChangeTextEditorSelection((e: vscode.TextEditorSelectionChangeEvent)=>{
+        if(isACryProjFile(e.textEditor)){
+            cryEngineVersion.updateVersion();
+        }
+    })
 
     // Required as if user opens VS Code with a file already opened it won't trigger
     // the onDidChangeActiveTextEditor, so checks are needed even there
@@ -59,10 +75,17 @@ class CryEngineVersion {
 
         let engineVersion = this._getEngineVersion(editor.document);
 
+        
         if (engineVersion) {
-            // Update the status bar
-            this._statusBarVersion.text = engineVersion;
-            this._statusBarVersion.show();
+            // Check if the engineVersion is in the enum of supported CRYENGINE_VERSIONS
+            if (engineVersion in CRYENGINE_VERSIONS){
+                // Update the status bar
+                this._statusBarVersion.text = "CRYENGINE version: " + engineVersion.split("-")[1];
+                this._statusBarVersion.show();
+            } else {
+                // Otherwise return from this method
+                return;
+            }
         } else {
             this.hideStatusBar();
         }
