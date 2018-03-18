@@ -56,13 +56,13 @@ function isACryProjFile(e: vscode.TextEditor) {
 class CryEngineVersion {
 
     private _statusBarVersion: vscode.StatusBarItem =
-        vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right);
+        vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left);
 
     public updateVersion() {
 
         // Create as needed
         if (!this._statusBarVersion) {
-            this._statusBarVersion = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right);
+            this._statusBarVersion = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left);
         }
 
         // Get the current text editor
