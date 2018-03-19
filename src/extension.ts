@@ -23,16 +23,25 @@ export function activate(context: vscode.ExtensionContext) {
     let command = vscode.commands.registerCommand('extension.setVersion', () => {
 
         // Get all the supported versions
-        let versions: string[] = [];
+        let quickPickItems: vscode.QuickPickItem[] = [];
         for (let key in CRYENGINE_VERSIONS) {
             if (typeof CRYENGINE_VERSIONS[key] === "string") {
-                versions.push(CRYENGINE_VERSIONS[key]);
+                quickPickItems.push({
+                    label: CRYENGINE_VERSIONS[key].split("-")[1],
+                    description: CRYENGINE_VERSIONS[key]
+                });
             }
         }
 
+        let quickPickOpts: vscode.QuickPickOptions = {
+            placeHolder: "Choose the CRYENGINE version you want use"
+        }
+
         // Show a menu where user can pick the wanted CRYENGINE version
-        vscode.window.showQuickPick(versions).then((version: string) => {
-            extController.setWantedCryEngineVersion(version);
+        vscode.window.showQuickPick(quickPickItems, quickPickOpts).then((item: vscode.QuickPickItem) => {
+            if (item) {
+                extController.setWantedCryEngineVersion(item.description);
+            }
         });
     });
     context.subscriptions.push(command);
