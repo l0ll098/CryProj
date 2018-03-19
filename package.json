@@ -59,6 +59,12 @@
                 "fileMatch": "*.cryproj",
                 "url": "./schemas/cryproj.schema.json"
             }
+        ],
+        "commands":[
+            {
+                "title": "Set wanted CRYENGINE version",
+                "command": "extension.setVersion"
+            }
         ]
     },
     "scripts": {

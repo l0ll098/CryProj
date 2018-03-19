@@ -18,10 +18,27 @@ export function activate(context: vscode.ExtensionContext) {
 
     context.subscriptions.push(statusBarHandler);
     context.subscriptions.push(extController);
+
+    // Register commands
+    let command = vscode.commands.registerCommand('extension.setVersion', () => {
+
+        // Get all the supported versions
+        let versions: string[] = [];
+        for (let key in CRYENGINE_VERSIONS) {
+            if (typeof CRYENGINE_VERSIONS[key] === "string") {
+                versions.push(CRYENGINE_VERSIONS[key]);
+            }
+        }
+
+        // Show a menu where user can pick the wanted CRYENGINE version
+        vscode.window.showQuickPick(versions).then((version: string) => {
+            extController.setWantedCryEngineVersion(version);
+        });
+    });
+    context.subscriptions.push(command);
 }
 
 export function deactivate() { }
-
 
 class ExtensionController {
     private subscriptions: vscode.Disposable[] = [];
@@ -69,6 +86,39 @@ class ExtensionController {
         // with this one
         //return e.document.languageId.toLowerCase() === "cryproj";
     }
+
+    public setWantedCryEngineVersion(version: string) {
+        let originalDoc = vscode.window.activeTextEditor.document.getText()
+        let modifiedDoc = JSON.parse(originalDoc);
+
+        if (modifiedDoc) {
+            // Check that the "require" node was present in the document
+            if (modifiedDoc["require"]) {
+                // If so set the version of the engine
+                modifiedDoc["require"]["engine"] = version;
+            } else {
+                // Otherwise create a node with that property
+                modifiedDoc["require"] = { engine: version };
+            }
+        }
+
+        // Save the wanted CRYENGINE version to the file
+        vscode.window.activeTextEditor.edit((editorBuffer: vscode.TextEditorEdit) => {
+
+            let start = new vscode.Position(0, 0);
+            let end = new vscode.Position(vscode.window.activeTextEditor.document.lineCount, 0);
+            let documentRange = new vscode.Range(start, end);
+
+            // Get the size in spaces a tab takes
+            let tabSize = vscode.window.activeTextEditor.options.tabSize;
+
+            // Replace file content with the new one
+            editorBuffer.replace(documentRange, JSON.stringify(modifiedDoc, null, tabSize));
+
+            // Save
+            vscode.window.activeTextEditor.document.save();
+        });
+    }
 }
 
 
@@ -82,6 +132,11 @@ class StatusBarHandler {
         // Create as needed
         if (!this._statusBarVersion) {
             this._statusBarVersion = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left);
+            this._statusBarVersion.command = "extension.setVersion";
+        } else {
+            if (!this._statusBarVersion.command) {
+                this._statusBarVersion.command = "extension.setVersion";
+            }
         }
 
         // Get the current text editor
