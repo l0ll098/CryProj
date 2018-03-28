@@ -2,7 +2,7 @@
     "name": "cryproj",
     "displayName": "CryProj",
     "description": "Easily edit .cryproj files",
-    "version": "1.1.5",
+    "version": "1.1.6",
     "publisher": "l0ll098",
     "engines": {
         "vscode": "^0.10.0"
@@ -15,7 +15,9 @@
         "CRYENGINE",
         "Game Development",
         "Game Engine",
-        "cryproj"
+        "cryproj",
+        "CryProj",
+        "JSON"
     ],
     "galleryBanner": {
         "color": "#303F9F",
@@ -39,6 +41,8 @@
             {
                 "id": "json",
                 "aliases": [
+                    "JSON",
+                    "json",
                     "CryProj"
                 ],
                 "extensions": [
