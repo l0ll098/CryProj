@@ -11,10 +11,10 @@ export class StatusBarHandler {
         // Create as needed
         if (!this._statusBarVersion) {
             this._statusBarVersion = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left);
-            this._statusBarVersion.command = "extension.setVersion";
+            this._statusBarVersion.command = "CryProj.setVersion";
         } else {
             if (!this._statusBarVersion.command) {
-                this._statusBarVersion.command = "extension.setVersion";
+                this._statusBarVersion.command = "CryProj.setVersion";
             }
         }
 

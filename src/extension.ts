@@ -16,7 +16,7 @@ export function activate(context: vscode.ExtensionContext) {
     context.subscriptions.push(extController);
 
     // Register commands
-    let command = vscode.commands.registerCommand('extension.setVersion', () => {
+    let command = vscode.commands.registerCommand('CryProj.setVersion', () => {
 
         // Get all the supported versions
         let quickPickItems: vscode.QuickPickItem[] = [];

@@ -67,7 +67,7 @@
         "commands":[
             {
                 "title": "Set wanted CRYENGINE version",
-                "command": "extension.setVersion"
+                "command": "CryProj.setVersion"
             }
         ]
     },
