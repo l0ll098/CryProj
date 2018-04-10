@@ -36,7 +36,7 @@ export function activate(context: vscode.ExtensionContext) {
 
         let quickPickOpts: vscode.QuickPickOptions = {
             placeHolder: "Choose the CRYENGINE version you want use"
-        }
+        };
 
         // Show a menu where user can pick the wanted CRYENGINE version
         vscode.window.showQuickPick(quickPickItems, quickPickOpts).then((item: vscode.QuickPickItem) => {

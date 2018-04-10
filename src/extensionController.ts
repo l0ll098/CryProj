@@ -47,7 +47,7 @@ export class ExtensionController {
     }
 
     public setWantedCryEngineVersion(version: string) {
-        let originalDoc = vscode.window.activeTextEditor.document.getText()
+        let originalDoc = vscode.window.activeTextEditor.document.getText();
         let modifiedDoc = JSON.parse(originalDoc);
 
         if (modifiedDoc) {
