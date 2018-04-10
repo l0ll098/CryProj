@@ -5,6 +5,7 @@ export class StatusBarHandler {
 
     private _statusBarVersion: vscode.StatusBarItem =
         vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left);
+    private statusBarMsgError: any = null;
 
     public updateVersion() {
 
@@ -47,7 +48,19 @@ export class StatusBarHandler {
 
     public _getEngineVersion(doc: vscode.TextDocument): string {
 
-        let docContent = JSON.parse(doc.getText());
+        let docContent;
+        try {
+            docContent = JSON.parse(doc.getText());
+            // If the document content has been parsed and an error message was shown, hide it
+            if (this.statusBarMsgError) {
+                (<vscode.Disposable>this.statusBarMsgError).dispose();
+                this.statusBarMsgError = null;
+            }
+        } catch (e) {
+            this.statusBarMsgError = vscode.window.setStatusBarMessage("Cannot parse engine version. Fix the document and it should work.");
+            return "";
+        }
+
 
         let requireNode = docContent["require"];
         let engineVersion;
