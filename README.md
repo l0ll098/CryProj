@@ -41,4 +41,16 @@ None. If you find one, plase [open a Issue](https://github.com/l0ll098/CryProj/i
 
 ## Release Notes
 
-See [CHANGELOG.md](./CHANGELOG.md)
+For a full list of changes check the [CHANGELOG.md](./CHANGELOG.md) file.
+
+### 1.1.5
+ - Banners
+
+### 1.1.1 - 1.1.4
+ - Fixes images not shown in the readme.md
+
+### 1.1.0
+ - Changes in the Readme.md
+
+### 1.0.0
+ - First released version
