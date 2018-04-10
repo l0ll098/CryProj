@@ -3,19 +3,19 @@ import { CRYENGINE_VERSIONS } from "./types";
 
 export class StatusBarHandler {
 
-    private _statusBarVersion: vscode.StatusBarItem =
+    private statusBarVersion: vscode.StatusBarItem =
         vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left);
     private statusBarMsgError: any = null;
 
     public updateVersion() {
 
         // Create as needed
-        if (!this._statusBarVersion) {
-            this._statusBarVersion = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left);
-            this._statusBarVersion.command = "CryProj.setVersion";
+        if (!this.statusBarVersion) {
+            this.statusBarVersion = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left);
+            this.statusBarVersion.command = "CryProj.setVersion";
         } else {
-            if (!this._statusBarVersion.command) {
-                this._statusBarVersion.command = "CryProj.setVersion";
+            if (!this.statusBarVersion.command) {
+                this.statusBarVersion.command = "CryProj.setVersion";
             }
         }
 
@@ -27,15 +27,15 @@ export class StatusBarHandler {
         }
 
 
-        let engineVersion = this._getEngineVersion(editor.document);
+        let engineVersion = this.getEngineVersion(editor.document);
 
 
         if (engineVersion) {
             // Check if the engineVersion is in the enum of supported CRYENGINE_VERSIONS
             if (engineVersion in CRYENGINE_VERSIONS) {
                 // Update the status bar
-                this._statusBarVersion.text = "CRYENGINE version: " + engineVersion.split("-")[1];
-                this._statusBarVersion.show();
+                this.statusBarVersion.text = "CRYENGINE version: " + engineVersion.split("-")[1];
+                this.statusBarVersion.show();
             } else {
                 // Otherwise return from this method
                 return;
@@ -46,7 +46,7 @@ export class StatusBarHandler {
 
     }
 
-    public _getEngineVersion(doc: vscode.TextDocument): string {
+    private getEngineVersion(doc: vscode.TextDocument): string {
 
         let docContent;
         try {
@@ -81,10 +81,13 @@ export class StatusBarHandler {
     }
 
     dispose() {
-        this._statusBarVersion.dispose();
+        this.statusBarVersion.dispose();
+        if (this.statusBarMsgError) {
+            (<vscode.Disposable>this.statusBarMsgError).dispose();
+        }
     }
 
     public hideStatusBar() {
-        this._statusBarVersion.hide();
+        this.statusBarVersion.hide();
     }
 }
