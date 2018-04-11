@@ -36,11 +36,14 @@ export class StatusBarHandler {
                 // Update the status bar
                 this.statusBarVersion.text = "CRYENGINE version: " + engineVersion.split("-")[1];
                 this.statusBarVersion.show();
+
+                this.statusBarMsgError = vscode.window.setStatusBarMessage("");
             } else {
                 // Otherwise return from this method
                 return;
             }
         } else {
+            this.statusBarMsgError = vscode.window.setStatusBarMessage("Cannot parse engine version. Fix the document and it should work.");
             this.hideStatusBar();
         }
 
@@ -54,7 +57,6 @@ export class StatusBarHandler {
             // If the document content has been parsed and an error message was shown, hide it
             if (this.statusBarMsgError) {
                 (<vscode.Disposable>this.statusBarMsgError).dispose();
-                this.statusBarMsgError = null;
             }
         } catch (e) {
             this.statusBarMsgError = vscode.window.setStatusBarMessage("Cannot parse engine version. Fix the document and it should work.");

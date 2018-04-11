@@ -43,6 +43,13 @@ None. If you find one, plase [open a Issue](https://github.com/l0ll098/CryProj/i
 
 For a full list of changes check the [CHANGELOG.md](./CHANGELOG.md) file.
 
+## 1.2.0-preview
+- Added support for [CRYENGINE 5.5 preview 1](https://github.com/CRYTEK/CRYENGINE/releases/tag/5.5.0_preview1)
+- Showing CryProj files as a JSON one (Bottom-right corner)
+- Added a quick pick menu (Bottom left corner) to easly change engine version
+- Suggestions are given based on the engine version (*Note: This will prompt you to reload VS Code*)
+- Fixed an issue that prevented reading the engine version from a file when it didn't contained valid JSON 
+
 ### 1.1.5
  - Banners
 
