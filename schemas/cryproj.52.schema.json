@@ -160,8 +160,7 @@
 						"engine-5.4"
 					],
 					"enum": [
-						"engine-5.2",
-						"engine-dev"
+						"engine-5.2"
 					]
 				},
 				"plugins": {
