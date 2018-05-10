@@ -1,6 +1,9 @@
 # Change Log
 All notable changes to the "CryProj" extension will be documented in this file.
 
+## 1.2.0-preview2
+ - When user changes engine version, the suggestions will be updated with the new ones, **without having to reload VS Code**
+
 ## 1.2.0-preview
 - Added support for [CRYENGINE 5.5 preview 1](https://github.com/CRYTEK/CRYENGINE/releases/tag/5.5.0_preview1)
 - Showing CryProj files as a JSON one (Bottom-right corner)

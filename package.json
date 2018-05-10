@@ -2,7 +2,7 @@
     "name": "cryproj",
     "displayName": "CryProj",
     "description": "Easily edit .cryproj files",
-    "version": "1.2.0-preview",
+    "version": "1.2.0-preview2",
     "publisher": "l0ll098",
     "engines": {
         "vscode": "^0.10.0"
