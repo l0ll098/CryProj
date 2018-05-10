@@ -3,8 +3,7 @@
 import * as vscode from "vscode";
 import { StatusBarHandler } from "./statusBarHandler";
 import { ExtensionController } from "./extensionController";
-import { CRYENGINE_VERSIONS, getLatestEngineStableVersion } from "./types";
-import { SchemasManager } from "./schemasManager";
+import { CRYENGINE_VERSIONS } from "./types";
 
 
 export function activate(context: vscode.ExtensionContext) {
@@ -12,11 +11,9 @@ export function activate(context: vscode.ExtensionContext) {
 
     let statusBarHandler = new StatusBarHandler();
     let extController = new ExtensionController(context, statusBarHandler);
-    let schemasManager = new SchemasManager(getLatestEngineStableVersion());
 
     context.subscriptions.push(statusBarHandler);
     context.subscriptions.push(extController);
-    context.subscriptions.push(schemasManager);
 
     // Register commands
     let command = vscode.commands.registerCommand('CryProj.setVersion', () => {
@@ -40,7 +37,6 @@ export function activate(context: vscode.ExtensionContext) {
         vscode.window.showQuickPick(quickPickItems, quickPickOpts).then((item: vscode.QuickPickItem) => {
             if (item) {
                 extController.setWantedCryEngineVersion(item.description);
-                schemasManager.setEngineVersion(item.description);
             }
         });
     });
