@@ -66,7 +66,16 @@ export class ExtensionController {
 
             const splices = currentSchema.pathname.split(".");
             const schemaVersionWithDot = version.split("-")[1];
-            const schemaVersion = schemaVersionWithDot.split(".")[0] + schemaVersionWithDot.split(".")[1];
+
+            let versionNumbers = schemaVersionWithDot.split(".");
+            let schemaVersion = schemaVersionWithDot.split(".")[0];
+
+            // Check that there was a number. If yes, the wanted engine version looks like "5.5"
+            // Otherwise, it will look like "dev"
+            if (versionNumbers.length > 1) {
+                // If there was the dot, add it to the version (the result will be "55")
+                schemaVersion += schemaVersionWithDot.split(".")[1];
+            }
 
             // User is serving files from a local server and not from json.schemastore.org
             if (splices[splices.length - 1] === "json") {
