@@ -1,6 +1,7 @@
 import * as vscode from "vscode";
 import { StatusBarHandler } from "./statusBarHandler";
 import { IPackageInfo } from "./types";
+import { URL } from "url";
 
 
 export class ExtensionController {
@@ -59,6 +60,26 @@ export class ExtensionController {
                 // Otherwise create a node with that property
                 modifiedDoc["require"] = { engine: version };
             }
+
+            let currentSchema = new URL(modifiedDoc["$schema"]);
+            let newSchema = currentSchema.protocol + "//" + currentSchema.host + "/cryproj";
+
+            const splices = currentSchema.pathname.split(".");
+            const schemaVersionWithDot = version.split("-")[1];
+            const schemaVersion = schemaVersionWithDot.split(".")[0] + schemaVersionWithDot.split(".")[1];
+
+            // User is serving files from a local server and not from json.schemastore.org
+            if (splices[splices.length - 1] === "json") {
+                // The schema served from a different server are called
+                // cryproj.<VERSION>.schema.json
+                newSchema += "." + schemaVersion + ".schema.json";
+            } else {
+                // Ths schema served from json.schemastore.org are accessible from a url with
+                // this format: json.schemastore.org/cryproj_<VERSION>
+                newSchema += "_" + schemaVersion;
+            }
+
+            modifiedDoc["$schema"] = newSchema;
         }
 
         // Save the wanted CRYENGINE version to the file

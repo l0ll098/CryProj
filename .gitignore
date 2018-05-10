@@ -2,4 +2,3 @@ node_modules
 *.vsix
 npm-debug.log
 out/
-/schemas/cryproj.schema.json

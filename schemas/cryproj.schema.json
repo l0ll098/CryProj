@@ -1,0 +1,17 @@
+{
+	"$schema": "http://json-schema.org/schema",
+	"$id": "http://json.schemastore.org/cryproj",
+	"title": "CryProj schema handler",
+	"$comment": "Handles the correct schema selection",
+	"type": "object",
+	"properties": {
+		"$schema": {
+			"$id": "/properties/$schema",
+			"type": "string",
+			"title": "Pick the wanted engine version",
+			"enum": [
+				"http://json.schemastore.org/cryproj"
+			]
+		}
+	}
+}

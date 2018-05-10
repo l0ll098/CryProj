@@ -5,8 +5,6 @@ import { StatusBarHandler } from "./statusBarHandler";
 import { ExtensionController } from "./extensionController";
 import { CRYENGINE_VERSIONS, getLatestEngineStableVersion } from "./types";
 import { SchemasManager } from "./schemasManager";
-import { join } from "path";
-import * as fs from "fs";
 
 
 export function activate(context: vscode.ExtensionContext) {
@@ -43,32 +41,10 @@ export function activate(context: vscode.ExtensionContext) {
             if (item) {
                 extController.setWantedCryEngineVersion(item.description);
                 schemasManager.setEngineVersion(item.description);
-
-                schemasManager.createSchemaFile(context.asAbsolutePath(join("schemas")));
-
-                // TODO: Reload just Intellisense and not the entire editor
-                let btn: vscode.MessageItem = { title: "Ok" };
-                vscode.window
-                    .showWarningMessage("In order to see updated suggestions, you neeed to restart VS Code", btn)
-                    .then((clickedBtn) => {
-                        if (clickedBtn) {
-                            console.log("Reloading VS Code...");
-
-                            // Save before realoding
-                            vscode.window.activeTextEditor.document.save();
-                            vscode.commands.executeCommand("workbench.action.reloadWindow");
-                        }
-                    });
             }
         });
     });
     context.subscriptions.push(command);
-
-    // Check if the schema file exists. If not, create it
-    if (!fs.existsSync(context.asAbsolutePath(join("schemas", "cryproj.schema.json")))){
-        console.log("Schema file doesn't exist, creating it...");
-        schemasManager.createSchemaFile(context.asAbsolutePath(join("schemas")));
-    }
 }
 
 export function deactivate() { }
