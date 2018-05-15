@@ -10,6 +10,11 @@
 			"type": "string",
 			"title": "Pick the wanted engine version",
 			"enum": [
+				"http://json.schemastore.org/cryproj_52",
+				"http://json.schemastore.org/cryproj_53",
+				"http://json.schemastore.org/cryproj_54",
+				"http://json.schemastore.org/cryproj_55",
+				"http://json.schemastore.org/cryproj_dev",
 				"http://json.schemastore.org/cryproj"
 			]
 		}
